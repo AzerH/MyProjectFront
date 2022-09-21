@@ -40,6 +40,13 @@ export class ProductComponent implements OnInit {
     this.dataLoaded=true;})
   }
   addToCart(product:Product){
-    this.toastrService.success("Səbətə əlavə olundu", product.productName)
+    if(product.productId===1){
+      this.toastrService.error("Xəta", "Bu məhsul səbətə əlavə edilə bilməz")
+    }else{
+      this.toastrService.success("Səbətə əlavə olundu", product.productName)
+
+    }
+
+    
   }
 }
