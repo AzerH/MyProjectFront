@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -18,7 +19,11 @@ export class ProductComponent implements OnInit {
   filterText=""
  
 
-  constructor(private productService : ProductService, private activatedRoute:ActivatedRoute, private toastrService:ToastrService) {}
+  constructor(private productService : ProductService, 
+    private activatedRoute:ActivatedRoute,
+     private toastrService:ToastrService,
+     private cartService:CartService) {}
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       if (params["categoryId"]){
@@ -44,7 +49,7 @@ export class ProductComponent implements OnInit {
       this.toastrService.error("Xəta", "Bu məhsul səbətə əlavə edilə bilməz")
     }else{
       this.toastrService.success("Səbətə əlavə olundu", product.productName)
-
+      this.cartService.addToCart(product);
     }
 
     
